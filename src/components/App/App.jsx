@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import jump from 'jump.js';
 
 import Box from 'components/Box';
@@ -10,9 +10,10 @@ import Button from 'components/Button';
 
 import { getImages } from 'services/api';
 
+import { GlobalStyle } from './GlobalStyle';
 import { Container } from './App.styled';
 
-export class App extends Component {
+class App extends Component {
   state = {
     imageQuery: '',
     pageNumber: 1,
@@ -26,19 +27,19 @@ export class App extends Component {
 
   componentDidUpdate(_, prevState) {
     const { imageQuery, pageNumber } = this.state;
-    const currentimageQuery = imageQuery;
+    const currentImageQuery = imageQuery;
     const currentPage = pageNumber;
 
     if (
-      prevState.imageQuery !== currentimageQuery ||
+      prevState.imageQuery !== currentImageQuery ||
       prevState.pageNumber !== currentPage
     ) {
       this.setState({ status: 'pending' });
-      getImages(currentimageQuery, currentPage)
+      getImages(currentImageQuery, currentPage)
         .then(data => {
           if (data.hits.lenght === 0) {
             return Promise.reject(
-              new Error(`Cannot find ${currentimageQuery}`)
+              new Error(`Cannot find ${currentImageQuery}`)
             );
           }
           const totalPages = Math.ceil(data.totalHits / 12);
@@ -123,7 +124,10 @@ export class App extends Component {
             {status === 'error' && <p>{error}</p>}
           </Container>
         </Box>
+        <GlobalStyle />
       </>
     );
   }
 }
+
+export default App;

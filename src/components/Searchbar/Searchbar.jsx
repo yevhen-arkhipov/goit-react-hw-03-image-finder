@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
-
 import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 
 import {
   Header,
@@ -15,6 +14,7 @@ const Searchbar = ({ onSubmit }) => {
     onSubmit(values.searchQuery);
     resetForm();
   };
+
   return (
     <Header>
       <Formik initialValues={{ searchQuery: '' }} onSubmit={handleSubmit}>
